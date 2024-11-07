@@ -1,3 +1,5 @@
+#  python /data/workspace/Projects/LLM/LLM-Learn/recipes/quickstart/inference/local_inference/inference.py --model_name "/root/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659" --quantization "8bit" --max_new_tokens 100
+
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 # This software may be used and distributed according to the terms of the Llama 2 Community License Agreement.
 
@@ -121,7 +123,9 @@ def main(
             check(output_text, agent_type=AgentType.AGENT, user_prompt=user_prompt)
             for check in safety_checker
         ]
+        
         are_safe = all([r[1] for r in safety_results])
+        
         if are_safe:
             print("User input and model output deemed safe.")
             print(f"Model output:\n{output_text}")
@@ -149,7 +153,6 @@ def main(
             import gradio as gr
         except ImportError:
             raise ImportError("This part of the recipe requires gradio. Please run `pip install gradio`")
-            
         gr.Interface(
             fn=inference,
             inputs=[
